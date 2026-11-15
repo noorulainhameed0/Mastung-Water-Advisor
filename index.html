@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastung Water-First Rotation Advisor | NASA Space Apps</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;margin:0;background:#eef2ee;color:#1a1a1a;line-height:1.65}
+.container{max-width:960px;margin:0 auto;padding:0 16px 30px}
+nav{position:sticky;top:0;z-index:10;background:#0f3d2e;color:#fff;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;border-radius:0 0 16px 16px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+nav b{font-size:19px}
+nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:600;background:rgba(255,255,255,.14);padding:7px 12px;border-radius:20px}
+nav button{background:#fff;color:#0f3d2e;border:0;padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer}
+.hero{background:linear-gradient(135deg,#0f3d2e 0%,#1a6b3c 55%,#2e9e5e 100%);color:#fff;border-radius:20px;padding:38px 24px;text-align:center;margin:16px 0;box-shadow:0 12px 32px rgba(15,61,46,.28)}
+.hero .pill{display:inline-block;background:rgba(255,255,255,.18);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px}
+.hero h1{font-size:44px;line-height:1.08;margin:14px 0 10px}
+.hero p{font-size:17px;opacity:.92;max-width:700px;margin:0 auto}
+.hero .stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.hero .stats div{background:#fff;color:#0f3d2e;border-radius:12px;padding:12px 16px;min-width:145px}
+.hero .stats b{font-size:22px;display:block}
+.hero .stats span{font-size:12px;color:#555}
+.notice{background:#fff8c5;border:1px solid #e6d96a;padding:13px;border-radius:12px;text-align:center;font-weight:600;margin:14px 0}
+.card{background:#fff;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 6px 22px rgba(0,0,0,.06);overflow:hidden}
+.card h2{font-size:26px;margin:0 0 6px;color:#0f3d2e}
+.lead{font-size:17px;color:#333}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:30px}}
+.kpi{background:#f0f7f1;border-radius:14px;padding:16px;text-align:center}
+.kpi b{font-size:24px;color:#0f3d2e;display:block}
+.cause{border-left:4px solid #d32f2f;background:#fff5f5;border-radius:0 12px 12px 0;padding:14px}
+.cause b{color:#a00}
+.impact{border-left:4px solid #1a6b3c;background:#eefaf0;border-radius:0 12px 12px 0;padding:14px}
+.timeline{padding-left:22px;border-left:3px solid #1a6b3c}
+.timeline div{margin:14px 0;position:relative}
+.timeline div:before{content:"";position:absolute;left:-29px;top:6px;width:11px;height:11px;background:#1a6b3c;border-radius:50%}
+.illus{border:1px solid #ddd;border-radius:14px;overflow:hidden;background:#fafafa;margin:12px 0}
+.illus figcaption{padding:12px;font-size:13px;color:#444;background:#fff;border-top:1px solid #eee}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.gallery{grid-template-columns:1fr}}
+.karez{background:linear-gradient(180deg,#e8f2ff,#fff);border:1px solid #bcd4ff;border-radius:18px;padding:24px;margin:16px 0}
+.karez h2{color:#1a3a6b}
+.bigbtn{border:2px solid #ddd;background:#fff;border-radius:14px;padding:16px;cursor:pointer;text-align:left;width:100%;font-size:16px}
+.bigbtn.selected{border-color:#1a6b3c;background:#e7f7e9;box-shadow:0 0 0 2px #c8e6c9}
+.output{display:none;background:#e7f7e9;border:2px solid #1a6b3c;border-radius:16px;padding:20px;margin:14px 0}
+.output.show{display:block}
+.rec{font-size:28px;font-weight:800;margin:0;color:#0f3d2e}
+.water-save{background:#0f3d2e;color:#fff;border-radius:12px;padding:14px;text-align:center;margin:12px 0}
+.water-save b{font-size:26px}
+.action{border:1px dashed #1a6b3c;border-radius:12px;padding:12px;background:#fff}
+button.main{background:#1a6b3c;color:#fff;border:0;padding:16px;font-size:18px;font-weight:800;border-radius:12px;cursor:pointer;width:100%}
+button.secondary{background:#fff;color:#0f3d2e;border:2px solid #0f3d2e;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+button.speak{background:#ff9800;color:#fff;border:0;padding:10px 16px;border-radius:20px;font-weight:700;cursor:pointer;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:1px solid #ddd;padding:10px;text-align:left}
+th{background:#0f3d2e;color:#fff}
+input[type=number]{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;font-size:16px}
+.footer{background:#111;color:#ddd;border-radius:14px;padding:20px;font-size:13px}
+.footer h3{color:#fff;margin-top:0}
+.small{font-size:13px;color:#666}
+.visual-box{border:1px solid #ddd;border-radius:14px;padding:16px;text-align:center;background:#fafafa;margin:14px 0}
+.flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.flow-box{background:#fff;border:2px solid #1a6b3c;border-radius:12px;padding:12px;min-width:135px;text-align:center}
+.flow-box b{display:block}
+.arrow{font-size:24px;color:#1a6b3c;font-weight:800}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
+@media(max-width:640px){.before-after{grid-template-columns:1fr}}
+.ba{border-radius:12px;padding:16px}
+.ba-bad{background:#ffe8e8;border:1px solid #e5a5a5}
+.ba-good{background:#e7f7e9;border:1px solid #a8d5ae}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tabs button{padding:10px 14px;border-radius:20px;border:1px solid #0f3d2e;background:#fff;cursor:pointer;font-weight:700}
+.tabs button.active{background:#0f3d2e;color:#fff}
+.lang-ur{display:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<nav><b>🌾 Mastung Water Advisor</b><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a href="#problem">Problem</a><a href="#data">NASA Data</a><a href="#karez">Karez</a><a href="#solution">Solution</a><a href="#advisor">Advisor</a><button onclick="toggleLang()">Urdu / English</button></div></nav>
+
+<div class="hero">
+<span class="pill">NASA SPACE APPS • MASTUNG, BALOCHISTAN • 2020–2025</span>
+<h1>Save Water First,<br>Then Grow More.</h1>
+<p>A water-first decision tool for Mastung farmers — built on NASA satellite evidence and centuries of karez knowledge.</p>
+<div class="stats"><div><b>3–4 ft / year</b><span>Groundwater falling</span></div><div><b>0.54 → 0.26</b><span>Soil wetness 2022 → 2025</span></div><div><b>25–45%</b><span>Water saved by rotation</span></div></div>
+<p style="margin-top:14px;font-size:13px;opacity:.85">Mastung • 29.8°N, 66.84°E • NASA POWER: MERRA-2 GWETTOP, IMERG, T2M</p>
+</div>
+
+<div class="notice">This tool supports — not replaces — your local knowledge of wells, karezes, soil, and markets.</div>
+
+<!-- PROBLEM IN DETAIL -->
+<div class="card" id="problem">
+<h2>The Problem — Mastung Is Running Out of Water</h2>
+<p class="lead"><b>Mastung is facing a slow, silent water crisis.</b> It is not one dry year. It is a system that is extracting more water than nature can replace, year after year.</p>
+<p>For generations, Mastung farmers relied on karez — underground gravity channels that delivered water without pumps and with almost no evaporation. In the last few decades, diesel and solar tube wells allowed much deeper and faster pumping. Wells now compete with each other and with the old karez tunnels. The water table has fallen below the level of many karez galleries, so karez that once flowed year-round now run dry.</p>
+<p>At the same time, farmers have continued to grow water-intensive crops, season after season, on the same land. Continuous wheat, with high irrigation demand and long growing periods, places the greatest pressure on an already falling aquifer — especially in the hot, dry months of April to July, when rainfall is almost zero and temperatures exceed 26°C.</p>
+<div class="grid3">
+<div class="kpi"><b>3–4 ft / year</b><span>Groundwater decline — wells must be deepened</span></div>
+<div class="kpi"><b>50% Drop</b><span>Soil wetness 0.54 (2022) → 0.26 (2025)</span></div>
+<div class="kpi"><b>0.13–0.14</b><span>Soil wetness Apr–Jul 2025 — deep deficit</span></div>
+</div>
+<h3 style="color:#0f3d2e;margin-top:22px">Why Is This Happening? — Root Causes</h3>
+<div class="grid2">
+<div class="cause"><b>Over-pumping by Tube Wells</b><br>Extraction is faster than natural recharge. Every new well lowers the water table for neighbours and for karez users.</div>
+<div class="cause"><b>Loss of Karez Discipline</b><br>Karez delivered limited, shared water. Tube wells removed that limit, so water is no longer used as a common, protected resource.</div>
+<div class="cause"><b>Water-Heavy Cropping</b><br>Continuous wheat and other thirsty crops demand irrigation even when rain fails and soil is already dry.</div>
+<div class="cause"><b>Hot, Dry Climate</b><br>High temperature + high evapotranspiration + rainfall under 0.1 mm/day in Apr–Jul 2025 = soil loses water faster than it gains it.</div>
+<div class="cause"><b>High Evaporation Loss</b><br>Open channels and flood irrigation lose water to sun and wind. Karez avoided this by keeping water underground.</div>
+<div class="cause"><b>No Rest for the Land</b><br>Land is rarely left fallow. Without rest and legumes, soil structure weakens and needs even more water and fertilizer.</div>
+</div>
+<h3 style="color:#0f3d2e;margin-top:22px">What Happens If We Do Nothing?</h3>
+<div class="grid2">
+<div class="impact"><b>Karez Will Keep Drying</b><br>More tunnels will fall below the water table and stop flowing permanently.</div>
+<div class="impact"><b>Wells Will Cost More</b><br>Deeper drilling, more diesel / solar cost, lower discharge — small farmers suffer first.</div>
+<div class="impact"><b>Soil Will Degrade</b><br>Dry, tired soil holds less moisture, needs more fertilizer, and yields less.</div>
+<div class="impact"><b>Incomes Will Fall</b><br>Crop failure in dry years will increase. Farmers will depend on one crop, one season.</div>
+<div class="impact"><b>Salinity Will Increase</b><br>As water falls and evaporation rises, salts remain in the topsoil, making land harder to farm.</div>
+<div class="impact"><b>Migration Will Increase</b><br>When farming no longer pays, families leave. Protecting water is protecting the village.</div>
+</div>
+<h3 style="color:#0f3d2e;margin-top:22px">Timeline — How the Crisis Developed</h3>
+<div class="timeline">
+<div><b>Before — Karez Era:</b> Gravity-fed, shared water. Recharge balanced extraction. Water table stable.</div>
+<div><b>Transition — Tube Well Era:</b> Pumping increased rapidly. Water table began falling 3–4 ft per year.</div>
+<div><b>2021 — Extreme Drought:</b> Only 0.17 mm/day rainfall. Soil moisture collapsed.</div>
+<div><b>2022 — Brief Recovery:</b> Soil wetness 0.54 — the wettest year. A chance to save water was missed.</div>
+<div><b>2024 — Wet Year:</b> 1.05 mm/day rainfall. Good harvest, but pumping did not reduce.</div>
+<div><b>2025 — Crisis:</b> Annual wetness 0.26, below the 0.3 deficit line. Apr–Jul: 0.13–0.14, rain under 0.1 mm/day, temperature above 26°C.</div>
+</div>
+<p><b>Conclusion:</b> The problem is not lack of knowledge. It is lack of a water-first choice at planting time. This tool provides that choice.</p>
+</div>
+
+<!-- NASA DATA - OFFLINE SVG ILLUSTRATIONS -->
+<div class="card" id="data">
+<h2>NASA Data — Satellite Evidence</h2>
+<p>Data from <b>NASA POWER (MERRA-2 GWETTOP, IMERG, T2M)</b>. Satellites see what the eye cannot: soil drying from space. All visuals below are built into the app — no internet needed.</p>
+<div class="tabs"><button class="active" onclick="showTab('chartTab',this)">Chart</button><button onclick="showTab('satTab',this)">Satellite View</button></div>
+<div id="chartTab">
+<div style="text-align:center;border:1px solid #ddd;border-radius:12px;padding:12px">
+<h3 style="margin:0">Mastung Soil Wetness (GWETTOP) 2020-2025</h3>
+<svg viewBox="0 0 600 280" width="100%" style="max-width:600px">
+<line x1="50" y1="20" x2="50" y2="230" stroke="#ccc"/><line x1="50" y1="230" x2="580" y2="230" stroke="#ccc"/>
+<line x1="50" y1="140" x2="580" y2="140" stroke="red" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="480" y="132" fill="red" font-size="13" font-weight="bold">0.3 deficit line</text>
+<text x="5" y="50" font-size="12">0.6</text><text x="5" y="95" font-size="12">0.45</text><text x="5" y="145" font-size="12">0.3</text><text x="5" y="190" font-size="12">0.15</text><text x="5" y="235" font-size="12">0.0</text>
+<polyline points="70,123 160,140 250,52 340,105 430,78 520,148" fill="none" stroke="#1a6b3c" stroke-width="3"/>
+<circle cx="70" cy="123" r="6" fill="#1a6b3c"/><circle cx="160" cy="140" r="6" fill="#1a6b3c"/><circle cx="250" cy="52" r="7" fill="#1a6b3c"/><circle cx="340" cy="105" r="6" fill="#1a6b3c"/><circle cx="430" cy="78" r="6" fill="#1a6b3c"/><circle cx="520" cy="148" r="7" fill="#d32f2f"/>
+<text x="225" y="38" font-size="13" font-weight="bold">0.54 (2022)</text><text x="495" y="172" font-size="13" font-weight="bold" fill="#d32f2f">0.26 (2025)</text>
+<text x="60" y="255" font-size="13">2020</text><text x="150" y="255" font-size="13">2021</text><text x="240" y="255" font-size="13">2022</text><text x="330" y="255" font-size="13">2023</text><text x="420" y="255" font-size="13">2024</text><text x="510" y="255" font-size="13">2025</text>
+</svg>
+</div>
+</div>
+<div id="satTab" style="display:none">
+<div class="gallery">
+<figure class="illus"><svg viewBox="0 0 600 320" width="100%"><rect width="600" height="320" fill="#0b1e3a"/><circle cx="300" cy="160" r="105" fill="#2e9e5e"/><circle cx="270" cy="140" r="45" fill="#8bc34a"/><circle cx="340" cy="180" r="38" fill="#c9a86a"/><circle cx="300" cy="220" r="22" fill="#4da6ff"/><ellipse cx="300" cy="160" rx="135" ry="12" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.7"/><rect x="430" y="50" width="90" height="45" rx="6" fill="#cfd8dc"/><rect x="445" y="62" width="60" height="8" fill="#1a6b3c"/><text x="300" y="300" fill="#fff" font-size="13" text-anchor="middle">NASA Satellite — Scanning Mastung Soil, Rain &amp; Temperature</text></svg><figcaption><b>NASA Satellite View — Illustrated</b><br>Satellite measures soil wetness, rainfall and temperature for Mastung every week. Green = vegetation, brown = dry land, blue = water.</figcaption></figure>
+<figure class="illus"><svg viewBox="0 0 600 320" width="100%"><rect width="600" height="320" fill="#d9b382"/><rect x="40" y="180" width="520" height="100" fill="#a67c4a"/><rect x="80" y="140" width="90" height="70" fill="#8d6e63"/><rect x="280" y="130" width="90" height="80" fill="#8d6e63"/><rect x="420" y="150" width="80" height="60" fill="#8d6e63"/><rect x="60" y="200" width="480" height="8" fill="#4da6ff"/><circle cx="300" cy="60" r="35" fill="#ffeb3b"/><text x="300" y="300" fill="#333" font-size="13" text-anchor="middle">Balochistan Landscape — Dry, Hot, Low Rainfall</text></svg><figcaption><b>Balochistan From Above — Illustrated</b><br>Dry landscape, high heat, low rainfall. This is why every drop saved matters.</figcaption></figure>
+</div>
+</div>
+<ul>
+<li><b>2021:</b> Extreme drought — 0.17 mm/day rainfall</li>
+<li><b>2022:</b> Best year — 0.54 soil wetness</li>
+<li><b>2024:</b> Wet year — 1.05 mm/day rainfall</li>
+<li><b>2025:</b> Crisis — 0.26 annual mean, 0.13–0.14 in Apr–Jul, rainfall under 0.1 mm/day, temperature above 26°C</li>
+</ul>
+<p class="small">Source: NASA POWER (MERRA-2 GWETTOP, IMERG, T2M), Mastung 29.8N, 66.84E.</p>
+</div>
+
+<!-- KAREZ - OFFLINE ILLUSTRATIONS -->
+<div class="karez" id="karez">
+<h2>Karez — Centuries of Local Knowledge</h2>
+<p>Karez is a gently sloping underground tunnel with vertical shafts. It taps groundwater and delivers it by gravity — no pump, almost no evaporation loss.</p>
+<div class="gallery">
+<figure class="illus"><svg viewBox="0 0 600 320" width="100%"><rect width="600" height="320" fill="#f5e6c8"/><rect x="0" y="180" width="600" height="140" fill="#a67c4a"/><polygon points="60,180 120,90 180,180" fill="#8d6e63"/><polygon points="400,180 470,70 540,180" fill="#8d6e63"/><rect x="100" y="120" width="14" height="100" fill="#666"/><rect x="300" y="110" width="14" height="110" fill="#666"/><rect x="480" y="125" width="14" height="95" fill="#666"/><rect x="40" y="210" width="520" height="22" fill="#1a6b3c"/><text x="300" y="226" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">KAREZ TUNNEL — Gravity Flow → → →</text><rect x="40" y="245" width="520" height="14" fill="#4da6ff" opacity="0.6"/><text x="300" y="305" fill="#333" font-size="12" text-anchor="middle">Shafts for cleaning &amp; ventilation • Water stays cool underground</text></svg><figcaption><b>Karez System — How It Works</b><br>Mountain water → Mother Well → Underground tunnel → Village fields. Gravity does all the work. No pump, no electricity.</figcaption></figure>
+<figure class="illus"><svg viewBox="0 0 600 320" width="100%"><rect width="600" height="320" fill="#e8f2ff"/><rect x="0" y="200" width="600" height="120" fill="#a67c4a"/><rect x="50" y="210" width="500" height="20" fill="#1a6b3c"/><circle cx="100" cy="180" r="18" fill="#333"/><circle cx="300" cy="180" r="18" fill="#333"/><circle cx="500" cy="180" r="18" fill="#333"/><rect x="92" y="100" width="16" height="100" fill="#666"/><rect x="292" y="100" width="16" height="100" fill="#666"/><rect x="492" y="100" width="16" height="100" fill="#666"/><text x="300" y="50" font-size="16" font-weight="bold" text-anchor="middle">Karez Cross-Section</text><text x="300" y="305" font-size="12" text-anchor="middle">Mother Well → Shafts → Tunnel → Daylight Point</text></svg><figcaption><b>Karez Cross-Section</b><br>When the water table falls below the tunnel, the karez dries. Low-water rotation keeps it above the tunnel.</figcaption></figure>
+<figure class="illus"><svg viewBox="0 0 600 320" width="100%"><rect width="600" height="320" fill="#2b2b2b"/><rect x="80" y="60" width="440" height="200" rx="20" fill="#4a3a2a"/><rect x="100" y="80" width="400" height="160" rx="14" fill="#6b5636"/><rect x="120" y="200" width="360" height="20" fill="#4da6ff"/><text x="300" y="50" fill="#fff" font-size="15" font-weight="bold" text-anchor="middle">INSIDE A KAREZ GALLERY</text><text x="300" y="305" fill="#fff" font-size="12" text-anchor="middle">Workers clean the tunnel through vertical shafts</text></svg><figcaption><b>Inside a Karez Gallery</b><br>Workers maintain the tunnel through vertical shafts. This system sustained Mastung for centuries.</figcaption></figure>
+<figure class="illus"><svg viewBox="0 0 600 320" width="100%"><rect width="600" height="320" fill="#fff"/><rect x="40" y="60" width="240" height="200" rx="12" fill="#e7f7e9" stroke="#1a6b3c"/><text x="160" y="95" font-size="16" font-weight="bold" text-anchor="middle">KAREZ</text><text x="160" y="125" font-size="13" text-anchor="middle">✓ No pump</text><text x="160" y="150" font-size="13" text-anchor="middle">✓ No electricity</text><text x="160" y="175" font-size="13" text-anchor="middle">✓ No evaporation</text><text x="160" y="200" font-size="13" text-anchor="middle">✓ Shared water</text><rect x="320" y="60" width="240" height="200" rx="12" fill="#ffe8e8" stroke="#d32f2f"/><text x="440" y="95" font-size="16" font-weight="bold" text-anchor="middle">TUBE WELL</text><text x="440" y="125" font-size="13" text-anchor="middle">✕ Diesel / Solar</text><text x="440" y="150" font-size="13" text-anchor="middle">✕ High pumping</text><text x="440" y="175" font-size="13" text-anchor="middle">✕ Water table falls</text><text x="440" y="200" font-size="13" text-anchor="middle">✕ Karez dries</text></svg><figcaption><b>Karez vs Tube Well</b><br>Karez protects water. Uncontrolled tube-well pumping drains it.</figcaption></figure>
+</div>
+<p><i>"Karez systems delivered water by gravity with almost no evaporation loss. When tube wells replaced them, groundwater fell faster than recharge. Rotation choices that reduce water demand help protect what remains — for karez users and well users alike."</i></p>
+</div>
+
+<!-- VISUAL SOLUTION -->
+<div class="card" id="solution">
+<h2>Visual Solution — How It Works</h2>
+<p>Look at the picture first, then read. This is the whole solution in one view.</p>
+<div class="visual-box">
+<h3 style="margin:0">Before vs After</h3>
+<div class="before-after" style="margin-top:12px;text-align:left">
+<div class="ba ba-bad"><b>Before — Continuous Wheat</b><br><br>🌾 Wheat → 🌾 Wheat → 🌾 Wheat<br>💧💧💧💧💧 High pumping every season<br>📉 Water table: <b>DOWN 3–4 ft / year</b><br>🏜️ Karez: <b>DRY</b><br>🧪 Soil: <b>Tired, needs more fertilizer</b></div>
+<div class="ba ba-good"><b>After — Water-First Rotation</b><br><br>🌱 Barley → 🫘 Mung → 😴 Rest → 🌾 Wheat<br>💧💧 Low pumping, rest season<br>📈 Water table: <b>RECOVERING</b><br>💧 Karez: <b>PROTECTED</b><br>🌱 Soil: <b>Free nitrogen from legume</b></div>
+</div>
+</div>
+<div class="visual-box">
+<h3 style="margin:0">Rotation Cycle — Three-Year Plan</h3>
+<p class="small">Follow the circle. Never grow the same thirsty crop twice in a row.</p>
+<svg viewBox="0 0 400 320" width="100%" style="max-width:420px">
+<circle cx="200" cy="160" r="110" fill="none" stroke="#1a6b3c" stroke-width="2" stroke-dasharray="6,4"/>
+<circle cx="200" cy="45" r="48" fill="#e7f7e9" stroke="#1a6b3c" stroke-width="2"/><text x="200" y="40" text-anchor="middle" font-size="22">🌱</text><text x="200" y="62" text-anchor="middle" font-size="11" font-weight="bold">YEAR ONE</text><text x="200" y="76" text-anchor="middle" font-size="11">Barley</text>
+<circle cx="305" cy="200" r="48" fill="#fff8c5" stroke="#c9a800" stroke-width="2"/><text x="305" y="195" text-anchor="middle" font-size="22">🫘</text><text x="305" y="217" text-anchor="middle" font-size="11" font-weight="bold">YEAR TWO</text><text x="305" y="231" text-anchor="middle" font-size="11">Mung Bean</text>
+<circle cx="95" cy="200" r="48" fill="#e8f2ff" stroke="#1a3a6b" stroke-width="2"/><text x="95" y="195" text-anchor="middle" font-size="22">😴</text><text x="95" y="217" text-anchor="middle" font-size="11" font-weight="bold">YEAR THREE</text><text x="95" y="231" text-anchor="middle" font-size="11">Rest / Cover</text>
+<text x="200" y="160" text-anchor="middle" font-size="13" font-weight="bold">THEN</text><text x="200" y="178" text-anchor="middle" font-size="13" font-weight="bold">WHEAT</text><text x="200" y="195" text-anchor="middle" font-size="11">with less fertilizer</text>
+</svg>
+</div>
+<div class="visual-box">
+<h3 style="margin:0">Water Flow — How Saving Water Saves the Karez</h3>
+<div class="flow"><div class="flow-box">💧<b>Less Pumping</b><span>Low-water crops</span></div><span class="arrow">→</span><div class="flow-box">📈<b>Water Table Up</b><span>Recharge &gt; Extraction</span></div><span class="arrow">→</span><div class="flow-box">🏛️<b>Karez Flows Again</b><span>Tunnel stays wet</span></div><span class="arrow">→</span><div class="flow-box">🌾<b>Farm + Karez Both Live</b><span>Long-term</span></div></div>
+</div>
+<div class="grid2" style="margin-top:14px">
+<div class="kpi"><b>Low Water Crops</b><span>Mung Bean, Barley, Chickpea</span></div>
+<div class="kpi"><b>Soil Health</b><span>Legumes provide free nitrogen</span></div>
+<div class="kpi"><b>Income Protection</b><span>Mung + Fodder = quick cash</span></div>
+<div class="kpi"><b>Karez Protection</b><span>Less pumping = higher water table</span></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Crop Comparison — Which Crop Needs How Much Water?</h2>
+<table>
+<tr><th>Crop</th><th>Water Need</th><th>Days</th><th>Benefit</th></tr>
+<tr><td><b>Wheat (Continuous)</b></td><td>High</td><td>150–160</td><td>Staple, but drains groundwater</td></tr>
+<tr><td><b>Barley</b></td><td>Low</td><td>110–120</td><td>Drought tolerant, early harvest</td></tr>
+<tr><td><b>Mung Bean</b></td><td>Low</td><td>60–70</td><td>Quick cash + free nitrogen</td></tr>
+<tr><td><b>Chickpea / Chana</b></td><td>Low-Medium</td><td>120–130</td><td>Legume, improves soil</td></tr>
+<tr><td><b>Fodder</b></td><td>Medium</td><td>45–55</td><td>Quick cash, high demand</td></tr>
+</table>
+</div>
+
+<div class="card" id="advisor">
+<h2>Advisor — Simple Steps for Farmers</h2>
+<p><b>Water Source</b></p>
+<div class="grid2">
+<button class="bigbtn" onclick="pick('source','tubewell',this)"><b>Tube Well</b><span>Diesel / Solar Pump</span></button>
+<button class="bigbtn" onclick="pick('source','karez',this)"><b>Karez</b><span>Traditional system</span></button>
+<button class="bigbtn" onclick="pick('source','both',this)"><b>Both</b><span>Karez + Tube Well</span></button>
+<button class="bigbtn" onclick="pick('source','rain',this)"><b>Rain-Fed Only</b><span>Barani land</span></button>
+</div>
+<p><b>Soil Type</b></p>
+<div class="grid2">
+<button class="bigbtn" onclick="pick('soil','sandy',this)"><b>Sandy</b><span>Water drains quickly</span></button>
+<button class="bigbtn" onclick="pick('soil','clay',this)"><b>Clay</b><span>Water is retained</span></button>
+<button class="bigbtn" onclick="pick('soil','loamy',this)"><b>Loamy / Normal</b><span>Balanced soil</span></button>
+<button class="bigbtn" onclick="pick('soil','salty',this)"><b>Saline</b><span>White salt deposits</span></button>
+</div>
+<p><b>Farmer Priority</b></p>
+<div class="grid2">
+<button class="bigbtn" onclick="pick('need','income',this)"><b>Quick Income</b><span>Income this season</span></button>
+<button class="bigbtn" onclick="pick('need','savewater',this)"><b>Save Water</b><span>Protect karez / well</span></button>
+<button class="bigbtn" onclick="pick('need','soil',this)"><b>Improve Soil</b><span>Reduce fertilizer use</span></button>
+<button class="bigbtn" onclick="pick('need','bothneed',this)"><b>Both</b><span>Income + Water saving</span></button>
+</div>
+<p style="margin-top:16px"><label><input type="checkbox" id="waterLimited" checked> <b>I have limited irrigation water</b></label></p>
+<button class="main" onclick="getRecommendation()">Get Recommendation</button>
+<button class="secondary" onclick="saveFarm()" style="margin-top:10px;width:100%">Save My Farm</button>
+</div>
+
+<div id="outputCard" class="output">
+<p style="margin:0"><span style="background:#0f3d2e;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px" id="badgeText">WATER-FIRST</span></p>
+<p class="rec" id="recText"></p>
+<p id="whyText" style="font-size:17px"></p>
+<div class="water-save">Estimated Water Saving<br><b id="saveText">35% Water</b></div>
+<div class="action" id="planText"></div>
+<div class="visual-box" id="visualResult" style="text-align:left"></div>
+<button class="speak" onclick="speakResult()">Listen to Recommendation</button>
+<p style="font-size:13px;color:#444;margin-top:12px">Satellite data measures only the top 5 cm of soil. Well depth, karez flow, and irrigation practice are critical factors this tool cannot measure.</p>
+</div>
+
+<div class="card">
+<h2>Water Saving Calculator — For Your Farm</h2>
+<label>Farm size (acres):</label>
+<input type="number" id="acres" value="5" min="0.5" step="0.5">
+<button class="main" onclick="calcWater()" style="margin-top:12px">Calculate Saving</button>
+<p id="calcResult" style="font-weight:700;margin-top:12px"></p>
+<p class="small">Estimate based on reduced irrigation frequency for barley / mung vs. continuous wheat.</p>
+</div>
+
+<div class="footer">
+<h3>Scientific Basis</h3>
+<ul>
+<li>Soil moisture anomaly: Current minus long-term average. Negative = water deficit.</li>
+<li>NDVI: Satellite greenness. Declining NDVI during season signals crop stress.</li>
+<li>Evapotranspiration: Water lost from soil + plants. High ET + low rain = groundwater drawdown.</li>
+<li>Resolution: GPM (0.1°) and SMAP (9 km) resampled to 1 km via bilinear interpolation.</li>
+<li>Karez context: Gravity-fed underground channels historically sustained Mastung without pumping. Tube wells lowered the water table below karez tunnels.</li>
+<li>Data source: NASA POWER (MERRA-2 GWETTOP, IMERG, T2M), Mastung 29.8N, 66.84E, 2020-2025. Apr-Jul 2025: GWETTOP 0.13-0.14, rain under 0.1 mm/day, T2M above 26C.</li>
+<li>All illustrations are built into this file — no external images, works fully offline.</li>
+</ul>
+<p><b>Mastung Water-First Team • NASA Space Apps 2026</b></p>
+</div>
+</div>
+<script>
+var sel={source:'tubewell',soil:'sandy',need:'income'};
+function pick(type,val,el){ sel[type]=val; var btns=el.parentElement.querySelectorAll('.bigbtn'); btns.forEach(b=>b.classList.remove('selected')); el.classList.add('selected'); }
+function toggleLang(){ var ur=document.querySelectorAll('.lang-ur'); var en=document.querySelectorAll('.lang-en'); var isUr=ur[0] && ur[0].style.display==='inline'; ur.forEach(e=>e.style.display=isUr?'none':'inline'); en.forEach(e=>e.style.display=isUr?'inline':'none'); }
+function showTab(id,btn){ document.getElementById('chartTab').style.display=id==='chartTab'?'block':'none'; document.getElementById('satTab').style.display=id==='satTab'?'block':'none'; document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function saveFarm(){ try{ localStorage.setItem('mastung_farm', JSON.stringify(sel)); alert('Farm saved.'); }catch(e){ alert('Save not supported in this viewer.'); } }
+function calcWater(){ var a=parseFloat(document.getElementById('acres').value)||0; var savedLitres=Math.round(a*350000*0.35); document.getElementById('calcResult').textContent='For '+a+' acres: Approx. '+savedLitres.toLocaleString()+' litres saved per season (about 35% less irrigation than continuous wheat).'; }
+function getRecommendation(){
+  var rec="",why="",plan="",badge="",save="",visual="";
+  if(sel.source==='karez' || sel.need==='savewater'){ rec="Barley → Mung Bean → Rest"; why="For karez users, this is the lowest-water rotation. Barley and mung reduce pumping pressure and allow the water table to recover."; plan="<b>Seasonal Plan:</b> Rabi: Barley (2 irrigations) → Kharif: Mung Bean (60 days) → One season rest. Pump only when necessary. Clean karez annually."; badge="KAREZ-SAFE"; save="45% Water Saved"; visual="🌱 Barley → 🫘 Mung → 😴 Rest<br>💧 Pumping: LOW | 📈 Water Table: RISING | 🏛️ Karez: SAFE";
+  } else if(sel.source==='rain' || sel.soil==='sandy'){ rec="Barley (Sole Crop)"; why="Barley is drought-tolerant and matures faster than wheat. It is the safest option for sandy and rain-fed soils."; plan="<b>Seasonal Plan:</b> Wait for rainfall → Sow barley → Apply mulching to retain moisture. Avoid wheat."; badge="DROUGHT-SAFE"; save="40% Water Saved"; visual="🌱 Barley Only<br>💧 Pumping: VERY LOW | 🏜️ Drought: SAFE";
+  } else if(sel.soil==='salty'){ rec="Barley + Salt-Tolerant Fodder"; why="Barley has the highest salt tolerance among cereals in this region."; plan="<b>Seasonal Plan:</b> Sow barley, limit irrigation, apply gypsum if available."; badge="SALINE SOIL"; save="30% Water Saved"; visual="🌱 Barley → 🌾 Fodder<br>🧂 Salt: TOLERATED | 💧 Water: SAVED";
+  } else if(sel.need==='income' || sel.need==='bothneed'){ rec="Mung Bean → Wheat"; why="Mung matures in 60-70 days for quick income and fixes nitrogen, reducing fertilizer need for wheat."; plan="<b>Seasonal Plan:</b> Kharif: Mung → Sell → Rabi: Wheat. Fertilizer reduced by ~30%. Two incomes in one year."; badge="INCOME + WATER"; save="35% Water Saved"; visual="🫘 Mung → 🌾 Wheat<br>💰 Income: 2 TIMES | 💧 Water: SAVED | 🌱 Soil: STRONGER";
+  } else if(sel.soil==='clay'){ rec="Wheat → Chickpea"; why="Clay soil retains moisture, making chickpea viable. Chickpea is a legume and restores nitrogen."; plan="<b>Seasonal Plan:</b> Rabi: Wheat → Next season: Chickpea."; badge="CLAY SOIL • BALANCED"; save="25% Water Saved"; visual="🌾 Wheat → 🫘 Chickpea<br>🌱 Soil: IMPROVED | 💧 Water: BALANCED";
+  } else { rec="Legume Cover Crop → Wheat"; why="Legumes improve soil structure and reduce fertilizer dependence while conserving water."; plan="<b>Seasonal Plan:</b> First: Legume (Mung / Lentil) → Then: Wheat. Include one legume every year."; badge="SOIL HEALTH"; save="30% Water Saved"; visual="🌱 Legume → 🌾 Wheat<br>🌱 Soil: HEALTHY | 💧 Water: SAVED"; }
+  document.getElementById('badgeText').textContent=badge;
+  document.getElementById('recText').textContent=rec;
+  document.getElementById('whyText').textContent=why;
+  document.getElementById('planText').innerHTML=plan;
+  document.getElementById('saveText').textContent=save;
+  document.getElementById('visualResult').innerHTML='<b>Visual Summary:</b><br>'+visual;
+  document.getElementById('outputCard').classList.add('show');
+  document.getElementById('outputCard').scrollIntoView({behavior:'smooth'});
+  window._lastRec=rec+" . "+why;
+}
+function speakResult(){ if(!window._lastRec) return; var u=new SpeechSynthesisUtterance(window._lastRec); u.lang='en-US'; speechSynthesis.speak(u); }
+</script>
+</body>
+</html>
